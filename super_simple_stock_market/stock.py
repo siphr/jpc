@@ -44,6 +44,25 @@ class Stock:
     def get_trade_record(self):
         return self._trade_record
 
+    def calculate_volume_weighted_price(self, time_delta=5):
+        if len(self._trade_record) == 0:
+            raise exceptions.e_sssm_trade_record_empty
+
+        numerator = 0
+        denominator = 0
+
+        since_timestamp = time.time() - (time_delta * 60)
+        filtered_record = self._trade_record if time_delta==None else\
+            [record for record in self._trade_record if record['timestamp'] >= since_timestamp]
+
+        for _record in filtered_record:
+            quantity_scaled_price_per_trade = _record['quantity'] * _record['price']
+            numerator = numerator + quantity_scaled_price_per_trade
+            denominator = denominator + _record['quantity']
+
+        volume_weighted_stock_price = numerator / denominator
+        return volume_weighted_stock_price
+
 if __name__ == '__main__':
     s = Stock('TEA', 0, 100)
     print(s.__dict__)
