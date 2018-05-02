@@ -32,9 +32,9 @@ class Stock:
 
         return price_earning_ratio
 
-    def record_trade(self, trade_type: TradeType, price: int):
+    def record_trade(self, trade_type: TradeType, quantity: int, price: int):
         try:
-            self._trade_record.append({'trade': trade_type, 'price': price, 'timestamp': time.time()})
+            self._trade_record.append({'trade': trade_type, 'quantity': quantity, 'price': price, 'timestamp': time.time()})
         except:
             if trade_type == TradeType.SELL:
                 raise exceptions.e_sssm_trade_record_sell_failed
