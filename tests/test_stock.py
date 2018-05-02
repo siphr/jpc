@@ -1,5 +1,6 @@
 import pytest
 
+from super_simple_stock_market.algorithms import calculate_gcbe_all_share_index
 from super_simple_stock_market.stock import Stock
 from super_simple_stock_market.stock_type import StockType
 from super_simple_stock_market.trade_type import TradeType
@@ -14,6 +15,11 @@ def common_stock(mocker):
 @pytest.fixture
 def preferred_stock(mocker):
     return Stock(symbol='PRF', last_dividend=10, par_value=100, fixed_dividend_percent=20, stock_type=StockType.PREFERRED)
+
+
+@pytest.fixture
+def stock_list(common_stock, preferred_stock):
+    return [common_stock, preferred_stock]
 
 
 def test_common_stock(common_stock):
@@ -39,3 +45,14 @@ def test_volume_weighted_price_with_trade_record(common_stock):
     common_stock.record_trade(TradeType.SELL, 10, 28)
 
     assert common_stock.calculate_volume_weighted_price() == 25.4
+
+
+def test_calculate_gcbe_all_share_index(stock_list):
+    for stock in stock_list:
+        stock.record_trade(TradeType.BUY, 10, 43)
+        stock.record_trade(TradeType.BUY, 10, 27)
+        stock.record_trade(TradeType.SELL, 10, 32)
+        stock.record_trade(TradeType.SELL, 10, 21)
+        stock.record_trade(TradeType.SELL, 10, 88)
+
+    assert calculate_gcbe_all_share_index(stock_list) == 42.2

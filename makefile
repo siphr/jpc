@@ -17,7 +17,7 @@ test: clean
 ifndef TEST_ONLY
 	TEST_ONLY=$(TEST_PATH)
 endif
-	python -m pytest --color=yes --cov-report term --cov=. $(TEST_ONLY) && \
+	python -m pytest --color=yes --cov-report term --cov=. $(TEST_ONLY)
 
 run:
 	python main.py
