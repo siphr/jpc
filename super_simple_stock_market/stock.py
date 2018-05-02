@@ -19,11 +19,11 @@ class Stock:
         if self._stock_type == StockType.PREFERRED:
             if self._fixed_dividend_percent is None:
                 raise exceptions.e_sssm_fixed_dividend_unavailable
-            
+
             dividend_yield = ((self._fixed_dividend_percent/100) * self._par_value) / price
         else:
             dividend_yield = self._last_dividend / price
-            
+
         return dividend_yield
 
     def calculate_price_earning_ratio(self, price: int):
@@ -52,7 +52,7 @@ class Stock:
         denominator = 0
 
         since_timestamp = time.time() - (time_delta * 60)
-        filtered_record = self._trade_record if time_delta==None else\
+        filtered_record = self._trade_record if time_delta is None else\
             [record for record in self._trade_record if record['timestamp'] >= since_timestamp]
 
         for _record in filtered_record:
@@ -62,6 +62,7 @@ class Stock:
 
         volume_weighted_stock_price = numerator / denominator
         return volume_weighted_stock_price
+
 
 if __name__ == '__main__':
     s = Stock('TEA', 0, 100)
