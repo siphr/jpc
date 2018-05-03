@@ -29,4 +29,3 @@ class e_sssm_gcbe_all_share_index_empty_stock_list(e_sssm_exception):
 
 class e_sssm_gcbe_all_share_index_calculation_failed(e_sssm_exception):
     pass
-
