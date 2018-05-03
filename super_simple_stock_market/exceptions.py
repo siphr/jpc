@@ -19,6 +19,10 @@ class e_sssm_trade_record_sell_failed(e_sssm_exception):
     pass
 
 
+class e_sssm_volume_weighted_time_out_of_bounds(e_sssm_exception):
+    pass
+
+
 class e_sssm_trade_record_empty(e_sssm_exception):
     pass
 

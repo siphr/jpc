@@ -114,7 +114,7 @@ class Stock:
         Calculate volume weighted price of a stock.
 
         Parameters:
-            time_delta_minutes: Number of minutes to go back in trade record history.
+            time_delta_minutes: Number of minutes to go back in trade record history. Range 1-60.
 
         Returns:
             A floating point number representing the price.
@@ -127,11 +127,14 @@ class Stock:
             Document Section 2.a.iv
             Table 2 Row 4
 
-        Todo:
-            * Bind time_delta_minutes within range.
+        Notes:
+            * time_delta_minutes is bound within a range of 1 - 60 minutes (arbitrary).
         """
         if len(self._trade_record) == 0:
             raise exceptions.e_sssm_trade_record_empty
+
+        if  time_delta_minutes not in range(1, 61):
+            raise exceptions.e_sssm_volume_weighted_time_out_of_bounds
 
         numerator = 0
         denominator = 0

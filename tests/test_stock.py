@@ -57,6 +57,16 @@ def test_volume_weighted_price_with_trade_record(common_stock):
     assert common_stock.calculate_volume_weighted_price() == 25.4
 
 
+def test_volume_weighted_price_with_bad_time_delta(common_stock):
+    common_stock.record_trade(TradeType.BUY, 10, 23)
+
+    with pytest.raises(exceptions.e_sssm_volume_weighted_time_out_of_bounds):
+        common_stock.calculate_volume_weighted_price(time_delta_minutes=0)
+
+    with pytest.raises(exceptions.e_sssm_volume_weighted_time_out_of_bounds):
+        common_stock.calculate_volume_weighted_price(time_delta_minutes=61)
+
+
 def test_calculate_gcbe_all_share_index_stock_list_empty_throws():
     with pytest.raises(exceptions.e_sssm_gcbe_all_share_index_empty_stock_list):
         calculate_gcbe_all_share_index([])
