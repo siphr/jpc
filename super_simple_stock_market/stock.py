@@ -21,7 +21,6 @@ class Stock:
 
     Notes:
         * If the client wished we could have derived classes for individual StockTypes.
-        * I assume that prices are whole numbers since we are dealing with pennies?
     """
     def __init__(self, symbol, last_dividend, par_value, fixed_dividend_percent=None, stock_type=StockType.COMMON):
         self._symbol = symbol
@@ -31,7 +30,7 @@ class Stock:
         self._stock_type = stock_type
         self._trade_record = []
 
-    def calculate_dividend_yield(self, price: int) -> float:
+    def calculate_dividend_yield(self, price: float) -> float:
         """
         Given a price, calculate the dividend yield.
 
@@ -62,7 +61,7 @@ class Stock:
 
         return dividend_yield
 
-    def calculate_price_earning_ratio(self, price: int) -> float:
+    def calculate_price_earning_ratio(self, price: float) -> float:
         """
         Given a price, calculate the price earning ratio.
 
@@ -89,7 +88,7 @@ class Stock:
 
         return price_earning_ratio
 
-    def record_trade(self, trade_type: TradeType, quantity: int, price: int):
+    def record_trade(self, trade_type: TradeType, quantity: int, price: float):
         """
         Record a buy or sell trade for this stock.
 
