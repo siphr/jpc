@@ -1,7 +1,7 @@
 import math
 
 
-def calculate_gcbe_all_share_index(stocks: list):
+def calculate_gcbe_all_share_index(stocks: list) -> float:
     price_product = 1
     for stock in stocks:
         price_product = price_product * stock.calculate_volume_weighted_price()

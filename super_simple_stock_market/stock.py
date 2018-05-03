@@ -15,7 +15,7 @@ class Stock:
         self._stock_type = stock_type
         self._trade_record = []
 
-    def calculate_dividend_yield(self, price: int):
+    def calculate_dividend_yield(self, price: int) -> float:
         if self._stock_type == StockType.PREFERRED:
             if self._fixed_dividend_percent is None:
                 raise exceptions.e_sssm_fixed_dividend_unavailable
@@ -26,7 +26,7 @@ class Stock:
 
         return dividend_yield
 
-    def calculate_price_earning_ratio(self, price: int):
+    def calculate_price_earning_ratio(self, price: int) -> float:
         dividend = self.calculate_dividend_yield(price)
         price_earning_ratio = price / dividend
 
@@ -41,10 +41,7 @@ class Stock:
             else:
                 raise exceptions.e_sssm_trade_record_buy_failed
 
-    def get_trade_record(self):
-        return self._trade_record
-
-    def calculate_volume_weighted_price(self, time_delta=5):
+    def calculate_volume_weighted_price(self, time_delta: int = 5) -> float:
         if len(self._trade_record) == 0:
             raise exceptions.e_sssm_trade_record_empty
 
@@ -62,8 +59,3 @@ class Stock:
 
         volume_weighted_stock_price = numerator / denominator
         return volume_weighted_stock_price
-
-
-if __name__ == '__main__':
-    s = Stock('TEA', 0, 100)
-    print(s.__dict__)
