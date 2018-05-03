@@ -57,6 +57,11 @@ def test_volume_weighted_price_with_trade_record(common_stock):
     assert common_stock.calculate_volume_weighted_price() == 25.4
 
 
+def test_calculate_gcbe_all_share_index_stock_list_empty_throws():
+    with pytest.raises(exceptions.e_sssm_gcbe_all_share_index_empty_stock_list):
+        calculate_gcbe_all_share_index([])
+        
+
 def test_calculate_gcbe_all_share_index(stock_list):
     for stock in stock_list:
         stock.record_trade(TradeType.BUY, 10, 43)
