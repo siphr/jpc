@@ -1,3 +1,8 @@
+"""
+All module exceptions.
+"""
+
+
 class e_sssm_exception(Exception):
     pass
 
