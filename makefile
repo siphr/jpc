@@ -1,4 +1,4 @@
-.PHONY: requirements clean lint test run build
+.PHONY: requirements clean lint test build
 
 TEST_PATH=./tests
 REV=`git rev-parse --short HEAD 2> /dev/null | sed "s/\(.*\)/@\1/"`
@@ -14,15 +14,9 @@ lint:
 	flake8 --exclude=env,venv
 
 test: clean
-ifndef TEST_ONLY
-	TEST_ONLY=$(TEST_PATH)
-endif
 	python -m pytest --color=yes --cov-report term --cov=. $(TEST_ONLY)
 
 coverage: clean
-ifndef TEST_ONLY
-	TEST_ONLY=$(TEST_PATH)
-endif
 	python -m pytest --color=yes --cov-report xml --cov=. $(TEST_ONLY)
 
 run:
