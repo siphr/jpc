@@ -18,6 +18,11 @@ def preferred_stock(mocker):
 
 
 @pytest.fixture
+def bad_preferred_stock(mocker):
+    return Stock(symbol='PRF', last_dividend=10, par_value=100, stock_type=StockType.PREFERRED)
+
+
+@pytest.fixture
 def stock_list(common_stock, preferred_stock):
     return [common_stock, preferred_stock]
 
@@ -30,6 +35,11 @@ def test_common_stock(common_stock):
 def test_preferred_stock(preferred_stock):
     assert preferred_stock.calculate_dividend_yield(100) == 0.2
     assert preferred_stock.calculate_price_earning_ratio(8) == 3.2
+
+
+def test_bad_preferred_stock_throws(bad_preferred_stock):
+    with pytest.raises(exceptions.e_sssm_fixed_dividend_unavailable):
+        bad_preferred_stock.calculate_dividend_yield(10)
 
 
 def test_volume_weight_price_without_trade_record_empty(common_stock):

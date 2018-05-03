@@ -19,6 +19,12 @@ ifndef TEST_ONLY
 endif
 	python -m pytest --color=yes --cov-report term --cov=. $(TEST_ONLY)
 
+coverage: clean
+ifndef TEST_ONLY
+	TEST_ONLY=$(TEST_PATH)
+endif
+	python -m pytest --color=yes --cov-report xml --cov=. $(TEST_ONLY)
+
 run:
 	python main.py
 
