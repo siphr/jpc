@@ -133,7 +133,7 @@ class Stock:
         if len(self._trade_record) == 0:
             raise exceptions.e_sssm_trade_record_empty
 
-        if  time_delta_minutes not in range(1, 61):
+        if time_delta_minutes not in range(1, 61):
             raise exceptions.e_sssm_volume_weighted_time_out_of_bounds
 
         numerator = 0
