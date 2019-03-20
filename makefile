@@ -19,9 +19,6 @@ test: clean
 coverage: clean
 	python -m pytest --color=yes --cov-report xml --cov=. $(TEST_ONLY)
 
-run:
-	python main.py
-
 build: clean
 	mkdir -p build
 	zip -r build/super_simple_stock_market_$(REV).zip . -x .coverage .*.un~ build/\* env/\* venv/\* .pytest_cache/\* */__pycache__/\* */\.* */\.pyc \.git/\* \.cache/\*
