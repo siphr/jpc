@@ -78,6 +78,18 @@ def test_calculate_gcbe_all_share_index_stock_list_empty_throws():
     with pytest.raises(exceptions.e_sssm_gcbe_all_share_index_empty_stock_list):
         calculate_gcbe_all_share_index([])
 
+def test_calculate_gcbe_all_share_index_bad_calculation_throws(stock_list):
+    for stock in stock_list:
+        stock.record_trade(TradeType.BUY, 10, 43)
+        stock.record_trade(TradeType.BUY, 10, 27)
+        stock.record_trade(TradeType.SELL, 10, 32)
+        stock.record_trade(TradeType.SELL, 10, 21)
+        stock.record_trade(TradeType.SELL, 10, 88)
+
+    with mock.patch('super_simple_stock_market.algorithms.math.pow', side_effect=Exception):
+        with pytest.raises(exceptions.e_sssm_gcbe_all_share_index_calculation_failed):
+            calculate_gcbe_all_share_index(stock_list)
+
 
 def test_calculate_gcbe_all_share_index(stock_list):
     for stock in stock_list:
