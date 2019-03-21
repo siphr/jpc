@@ -22,6 +22,7 @@ class Stock:
     Notes:
         * If the client wished we could have derived classes for individual StockTypes.
     """
+
     def __init__(self, symbol, last_dividend, par_value, fixed_dividend_percent=None, stock_type=StockType.COMMON):
         self._symbol = symbol
         self._last_dividend = last_dividend

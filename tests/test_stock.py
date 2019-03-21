@@ -1,4 +1,5 @@
 import pytest
+import unittest.mock as mock
 
 from super_simple_stock_market.algorithms import calculate_gcbe_all_share_index
 from super_simple_stock_market.stock import Stock
@@ -25,6 +26,12 @@ def bad_preferred_stock(mocker):
 @pytest.fixture
 def stock_list(common_stock, preferred_stock):
     return [common_stock, preferred_stock]
+
+@pytest.fixture
+def mock_stock(mocker):
+    stock = Stock(symbol='CMN', last_dividend=1, par_value=100)
+    stock._trade_record = mock.Mock()
+    return stock
 
 
 def test_common_stock(common_stock):
@@ -81,3 +88,12 @@ def test_calculate_gcbe_all_share_index(stock_list):
         stock.record_trade(TradeType.SELL, 10, 88)
 
     assert calculate_gcbe_all_share_index(stock_list) == 42.2
+
+
+def test_trade_record_throw(mock_stock):
+    stock = mock_stock
+    stock._trade_record.append.side_effect = Exception
+    with pytest.raises(exceptions.e_sssm_trade_record_sell_failed):
+        stock.record_trade(TradeType.SELL, 0, 0)
+    with pytest.raises(exceptions.e_sssm_trade_record_buy_failed):
+        stock.record_trade(TradeType.BUY, 0, 0)
