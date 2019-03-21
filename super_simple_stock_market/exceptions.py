@@ -11,6 +11,10 @@ class e_sssm_fixed_dividend_unavailable(e_sssm_exception):
     pass
 
 
+class e_sssm_invalid_price(e_sssm_exception):
+    pass
+
+
 class e_sssm_trade_record_buy_failed(e_sssm_exception):
     pass
 

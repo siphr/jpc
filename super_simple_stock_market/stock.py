@@ -46,12 +46,18 @@ class Stock:
             A floating point number representing the yield.
 
         Exceptions:
+            e_sssm_invalid_price:
+            Raised if the provided price is <= 0
+
             e_sssm_fixed_dividend_unavailable:
             Raised if the preferred stock was missing the fixed dividend percent.
 
         Notes:
             As per the documentation calculate the dividend yield differently for preferred or common stock.
         """
+        if not price or price <= 0:
+            raise exceptions.e_sssm_invalid_price
+
         if self._stock_type == StockType.PREFERRED:
             if self._fixed_dividend_percent is None:
                 raise exceptions.e_sssm_fixed_dividend_unavailable

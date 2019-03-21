@@ -40,6 +40,13 @@ def test_common_stock(common_stock):
     assert common_stock.calculate_price_earning_ratio(8) == 64
 
 
+def test_common_stock_bad_price(common_stock):
+    with pytest.raises(exceptions.e_sssm_invalid_price):
+        assert common_stock.calculate_dividend_yield(None)
+    with pytest.raises(exceptions.e_sssm_invalid_price):
+        assert common_stock.calculate_dividend_yield(0)
+
+
 def test_preferred_stock(preferred_stock):
     assert preferred_stock.calculate_dividend_yield(100) == 0.2
     assert preferred_stock.calculate_price_earning_ratio(8) == 3.2
