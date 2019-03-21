@@ -14,10 +14,10 @@ lint:
 	flake8 --exclude=env,venv
 
 test: clean
-	python -m pytest --color=yes --cov-report term --cov=. $(TEST_ONLY)
+	python -m pytest --color=yes --cov-report term --cov=super_simple_stock_market $(TEST_ONLY)
 
 coverage: clean
-	python -m pytest --color=yes --cov-report xml --cov=. $(TEST_ONLY)
+	python -m pytest --color=yes --cov-report xml --cov=super_simple_stock_market $(TEST_ONLY)
 
 build: clean
 	mkdir -p build
